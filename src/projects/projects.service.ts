@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common'
 import {InjectModel} from '@nestjs/mongoose'
 import { Project } from '../schemas/project.schema'
 import { Model } from 'mongoose'
-
+import { CreateProjectDto } from '../dto/create-project.dto'
+import { UpdateProjectDto } from '../dto/update-project.dto'
 
 @Injectable()
 export class ProjectsService {
@@ -12,7 +13,7 @@ export class ProjectsService {
         this.projectModel.find();
     }
 
-    async create(createProject:any) {
+    async create(createProject: CreateProjectDto) {
         const newProject = new this.projectModel(createProject);
         return newProject.save();
     }
@@ -25,7 +26,7 @@ export class ProjectsService {
         return this.projectModel.findByIdAndDelete(id);
     }
 
-    async update(id: string, project: any) {
+    async update(id: string, project: UpdateProjectDto) {
         return this.projectModel.findByIdAndUpdate(id, project);
     }
 }
