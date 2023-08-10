@@ -12,8 +12,20 @@ export class ProjectsService {
         this.projectModel.find();
     }
 
-    create(createProject:any) {
+    async create(createProject:any) {
         const newProject = new this.projectModel(createProject);
         return newProject.save();
+    }
+
+    async findOne(id: string) {
+        return this.projectModel.findById(id);
+    }
+
+    async delete(id: string) {
+        return this.projectModel.findByIdAndDelete(id);
+    }
+
+    async update(id: string, project: any) {
+        return this.projectModel.findByIdAndUpdate(id, project);
     }
 }
