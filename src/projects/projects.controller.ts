@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Put, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Put, Body, Param, ConflictException, NotFoundException, HttpCode } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from 'src/dto/create-project.dto';
 
@@ -12,23 +12,41 @@ export class ProjectsController {
         }
 
         @Get(':id')
-        findOne(@Param('id') id: string) {
-            return this.projectsService.findOne(id);
+        async findOne(@Param('id') id: string) {
+            const project = await this.projectsService.findOne(id);
+            if (!project) {
+                throw new NotFoundException('Project not found');
+            }
+            return project;
         }
 
         @Post()
-        create(@Body() body: CreateProjectDto) {
-            return this.projectsService.create(body);
+        async create(@Body() body: CreateProjectDto) {
+            try {
+                 return await this.projectsService.create(body);                
+            } catch (error) {
+                if (error.code == 11000) {
+                    throw new ConflictException('Project already exists');
+                }
+                throw error;
+            }
         }
 
         @Delete(':id')
-        delete(@Param('id') id:string ) {
-            return this.projectsService.delete(id);
+        @HttpCode(204)
+        async delete(@Param('id') id:string ) {
+            const project = await this.projectsService.delete(id);
+            if (!project) {
+                throw new NotFoundException('Project not found');
+            }
+            return project;
         }
 
         @Put(':id')
-        update(@Param('id') id:string, @Body() body: any ) {
-            return this.projectsService.update(id, body);
+        async update(@Param('id') id:string, @Body() body: any ) {
+            const project = await this.projectsService.update(id, body);
+            if (!project) throw new NotFoundException('Project not found');
+            return project;
         }
     
 }
