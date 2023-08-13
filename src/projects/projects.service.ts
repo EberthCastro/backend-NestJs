@@ -10,7 +10,7 @@ export class ProjectsService {
     constructor(@InjectModel(Project.name) private projectModel: Model<Project>) {}
 
     findAll() {
-        this.projectModel.find();
+        return this.projectModel.find();
     }
 
     async create(createProject: CreateProjectDto) {
@@ -27,6 +27,6 @@ export class ProjectsService {
     }
 
     async update(id: string, project: UpdateProjectDto) {
-        return this.projectModel.findByIdAndUpdate(id, project);
+        return this.projectModel.findByIdAndUpdate(id, project, {new: true});
     }
 }
