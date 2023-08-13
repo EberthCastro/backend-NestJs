@@ -27,6 +27,6 @@ export class ProjectsService {
     }
 
     async update(id: string, project: UpdateProjectDto) {
-        return this.projectModel.findByIdAndUpdate(id, project);
+        return this.projectModel.findByIdAndUpdate(id, project, {new: true});
     }
 }

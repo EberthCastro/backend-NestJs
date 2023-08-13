@@ -7,14 +7,13 @@ export class ProjectsController {
     constructor(private projectsService: ProjectsService) {}
         
         @Get()
-        findAll() {
-            // return 'Get all projects';
+        findAll() {            
             return this.projectsService.findAll();
         }
 
         @Get(':id')
-        findOne() {
-            return 'Get one project';
+        findOne(@Param('id') id: string) {
+            return this.projectsService.findOne(id);
         }
 
         @Post()
@@ -28,8 +27,8 @@ export class ProjectsController {
         }
 
         @Put(':id')
-        update() {
-            return 'Updated project';
+        update(@Param('id') id:string, @Body() body: any ) {
+            return this.projectsService.update(id, body);
         }
     
 }
