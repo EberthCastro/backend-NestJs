@@ -32,6 +32,77 @@
 $ npm install
 ```
 
+# Projects API
+
+This API provides endpoints to manage projects.
+
+## Base URL
+
+The base URL for all API endpoints is: `http://localhost:3000/api/projects`
+
+## Endpoints
+
+### Get all projects
+
+- URL: `/`
+- Method: `GET`
+- Description: Retrieves a list of all projects.
+- Response:
+  - Status Code: `200 OK`
+  - Body: Array of project objects.
+
+### Get project by ID
+
+- URL: `/:id`
+- Method: `GET`
+- Description: Retrieves a specific project by its ID.
+- Parameters:
+  - `id` (path parameter): The ID of the project.
+- Response:
+  - Status Code: `200 OK`
+  - Body: Project object.
+
+### Create project
+
+- URL: `/`
+- Method: `POST`
+- Description: Creates a new project.
+- Request Body: JSON object containing project details.
+- Response:
+  - Status Code: `201 Created`
+  - Body: Created project object.
+
+### Delete project
+
+- URL: `/:id`
+- Method: `DELETE`
+- Description: Deletes a project.
+- Parameters:
+  - `id` (path parameter): The ID of the project.
+- Response:
+  - Status Code: `204 No Content`
+  - Body: Empty response body.
+
+### Update project
+
+- URL: `/:id`
+- Method: `PUT`
+- Description: Updates an existing project.
+- Parameters:
+  - `id` (path parameter): The ID of the project.
+- Request Body: JSON object containing updated project details.
+- Response:
+  - Status Code: `200 OK`
+  - Body: Updated project object.
+
+## Error Handling
+
+- If a project with the provided ID is not found, the API will respond with a `404 Not Found` status code and an error message.
+- If a project with the same name already exists when creating a project, the API will respond with a `409 Conflict` status code and an error message.
+
+
+
+
 ## Running the app
 
 ```bash
